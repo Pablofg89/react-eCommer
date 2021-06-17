@@ -1,0 +1,21 @@
+.card{
+    width: 14rem;
+    margin: 4px;
+    text-align: center;
+    background-color: #ffffffc5 !important;
+}
+.cardTitle{
+    font-size: 17px;
+    font-weight: 700;
+    margin-top: 14px;
+    font-family: -webkit-pictograph;
+}
+.descriptionText{
+    font-size: 12px;
+    text-align: justify;
+    padding: 0px 16px;
+}
+.imgane-item{
+    border-radius: 2.25rem !important;
+    border: 0px solid #ffffff00 !important;
+}
