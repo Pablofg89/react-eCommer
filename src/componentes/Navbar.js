@@ -11,7 +11,8 @@ const Navbar = () => {
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <form className="d-flex">
-                            <input className="form-control me-2" type="search" placeholder="Buscar" aria-label="Search"/>
+                            <input className="form-control me-2" type="search" placeholder="Buscar..." aria-label="Search"/>
+                            
                             <button className ="btn btn-primary" type ="submit">Buscar</button>
                         </form>
                     </div>

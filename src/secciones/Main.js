@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import ECommerceCard from '../componentes/EcomerCard'
 import Navbar from '../componentes/Navbar'
+import LocalImage from '../componentes/LocalImage'
+import NavbarOptions from '../componentes/NavbarOptions'
 import './Main.css'
 
-
 const Main = () => {
-
 
     // Variables de estado
     const [eCommerce, seteCommerce] = useState([]);
     //cantiadad de elementos pagina principal 
-    const elementosEcommer = eCommerce.slice(0,20);
+    const elementosEcommer = eCommerce.slice(0, 20);
     //Funcion de GET al API
     const geteCommer = () => {
         console.log('Función GET');
@@ -24,8 +24,6 @@ const Main = () => {
             });
     }
 
-
-
     // El callback del useEffect se ejecutará antes de que el componente se monte
     useEffect(() => {
         geteCommer();
@@ -36,16 +34,26 @@ const Main = () => {
             <h1>E-Commerce</h1>
 
             <div><Navbar/></div>
-            
-            <div className="d-flex flex-wrap">             
-                {elementosEcommer.map((eCommerce,identificador) =>
+            <div><NavbarOptions/></div>
+            <div className="d-flex flex-wrap">
+
+                {elementosEcommer.map((eCommerce, identificador) =>
+                    eCommerce.image ?
                         <ECommerceCard
                             image={eCommerce.image}
+                            images={eCommerce.images}
                             titulo={eCommerce.product_name}
                             descripcion={eCommerce.description}
-                            key={identificador} />)
+                            key={identificador} />
+                        :
+                        <LocalImage
+                        titulo={eCommerce.product_name}
+                        descripcion={eCommerce.description}
+                        key={identificador}                        
+                        />
+                )
                 }
-            </div>           
+            </div>
         </div>
     )
 }
