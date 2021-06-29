@@ -15,7 +15,6 @@ const Main = () => {
     const geteCommer = () => {
         console.log('Función GET');
         const URL = 'https://ecomerce-master.herokuapp.com/api/v1/item';
-
         fetch(URL)
             .then(body => body.json())
             .then(respuesta => {
@@ -23,20 +22,33 @@ const Main = () => {
                 console.log(respuesta);
             });
     }
+    const geteCategory = () => {
+        const URL = 'https://ecomerce-master.herokuapp.com/api/v1/item';
+        fetch(URL)
+            .then(body => body.json())
+            .then(respuesta => {
+                seteCommerce(respuesta);
+            });
+    }
 
     // El callback del useEffect se ejecutará antes de que el componente se monte
     useEffect(() => {
         geteCommer();
+        geteCategory();
     }, []);
 
     return (
         <div className="container">
-            <h1>E-Commerce</h1>
-
-            <div><Navbar/></div>
-            <div><NavbarOptions/></div>
-            <div className="d-flex flex-wrap">
-
+            <div><Navbar /></div>
+            <div>
+                {elementosEcommer.map((eCategory, identificador) =>
+                    <NavbarOptions
+                        eCategory={eCategory.category}
+                        key={identificador}
+                    />
+                )}
+            </div>
+            <div className="d-flex align-content-around flex-wrap">
                 {elementosEcommer.map((eCommerce, identificador) =>
                     eCommerce.image ?
                         <ECommerceCard
@@ -47,9 +59,9 @@ const Main = () => {
                             key={identificador} />
                         :
                         <LocalImage
-                        titulo={eCommerce.product_name}
-                        descripcion={eCommerce.description}
-                        key={identificador}                        
+                            titulo={eCommerce.product_name}
+                            descripcion={eCommerce.description}
+                            key={identificador}
                         />
                 )
                 }

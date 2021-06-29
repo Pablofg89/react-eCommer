@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // Archivos js y jquery de bootstrap -> comportamiento
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
+
 ReactDOM.render(
   <React.StrictMode>
     <App/>

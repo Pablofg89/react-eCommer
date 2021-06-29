@@ -1,7 +1,9 @@
 import React from 'react'
 
-const NavbarOptions = () => {
+const NavbarOptions = (props) => {
 
+    // Destructurar el API 
+    const {eCategory} = props;
     return (
         <div>
             <nav class="navbar navbar-light bg-light" >
