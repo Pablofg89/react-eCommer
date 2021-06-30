@@ -1,4 +1,5 @@
 import React from 'react'
+import './NavbarOptions.css'
 
 const NavbarOptions = (props) => {
 
@@ -16,10 +17,11 @@ const NavbarOptions = (props) => {
 
     return (
         <div>
-            <nav className="navbar navbar-light bg-light" >
-                <form className="container-fluid justify-content-evenly">
+            <nav className="" >
+                <p className="pTitle" >Categories</p>
+                <form className="fromSec">
                     {categoryFilter.map((result,index) => (
-                        <button className="btn btn-sm btn-outline-secondary" type="button" key={index}>{result}</button>
+                        <button className="buttonStyle" type="button" key={index}>{result}</button>
                     )
                     )}
                 </form>

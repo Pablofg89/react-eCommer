@@ -28,23 +28,24 @@ const Main = () => {
     }
 
 
-     //Onclick card
-     const test = (item) => {
+    //Onclick card
+    const cardOnClick = (item) => {
         console.log('click card')
         setMostrarProd(true)
 
         // return(
         // <div className="card">
         //     <div className="card-body">
-        //         <img style={{ width: 175, height: 175, }} className="imgane-item img-thumbnail " src={item.image || item.images} alt={"descripcion"} />
-        //         {/* <h4 className="cardTitle">{titulo}</h4>
+        //         <p>haha</p>
+        //         {/* <img style={{ width: 175, height: 175, }} className="imgane-item img-thumbnail " src={item.image || item.images} alt={"descripcion"} />
+        //         <h4 className="cardTitle">{titulo}</h4>
         //         <p className="card-text text-overflow descriptionText">{descripcion}</p>
         //         <p className="card-text text-overflow descriptionText">{price}</p> */}
         //     </div>
         // </div>
         // )
     }
-    
+
     // El callback del useEffect se ejecutará antes de que el componente se monte
     useEffect(() => {
         geteCommer();
@@ -54,11 +55,19 @@ const Main = () => {
         <div className="container">
             <div><Navbar /></div>
             <div>
-                    <NavbarOptions eCommerceInfo={eCommerce}/> 
-         </div>
-         {
-             mostrarProd ? (<h1>info producto</h1>) : null
-         }
+                <NavbarOptions eCommerceInfo={eCommerce} />
+            </div>
+            {
+                mostrarProd ?
+                    (<div className="card">
+                        <div className="card-body">
+                            <img style={{ width: 175, height: 175, }} className="imgane-item img-thumbnail " src={eCommerce.image || eCommerce.images} alt={"descripcion"} />
+                            <h4 className="cardTitle">{eCommerce.titulo}</h4>
+                            <p className="card-text text-overflow descriptionText">{eCommerce.descripcion}</p>
+                        </div>
+                    </div>)
+                    : null
+            }
             <div className="d-flex align-content-around flex-wrap">
                 {elementosEcommer.map((eCommerce, identificador) =>
                     eCommerce.image ?
@@ -69,7 +78,7 @@ const Main = () => {
                             price={eCommerce.price}
                             descripcion={eCommerce.description}
                             key={identificador}
-                            test= {test} />
+                            cardOnClick={cardOnClick} />
                         :
                         <LocalImage
                             titulo={eCommerce.product_name}
