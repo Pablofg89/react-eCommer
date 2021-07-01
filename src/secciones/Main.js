@@ -10,6 +10,7 @@ const Main = () => {
     // Variables de estado
     const [eCommerce, seteCommerce] = useState([]);
     const [numbRand, setnumbRand] = useState([]);
+    const [mostrarProd, setMostrarProd] = useState(false);
 
     //cantiadad de elementos pagina principal 
     const crearNumerosRand = (respuesta) => {
@@ -19,13 +20,12 @@ const Main = () => {
             if (!arrayNumRand.includes(numrand)) {
                 arrayNumRand.push(numrand);
                 i++;
+                console.log(numrand);
             }
         }
         setnumbRand(arrayNumRand);
     }
-    // Variables de estado
-    const [mostrarProd, setMostrarProd] = useState(false);
-
+    
 
     //Funcion de GET al API
     const geteCommer = () => {
@@ -34,15 +34,23 @@ const Main = () => {
             .then(body => body.json())
             .then(respuesta => {
                 seteCommerce(respuesta);
-                crearNumerosRand(respuesta);                
+                crearNumerosRand(respuesta);
+                console.log(respuesta);
             });
     }
 
 
     //Onclick card
-    const cardOnClick = (item) => {
+    const cardOnClick = () => {
         console.log('click card')
         setMostrarProd(true)
+        return (<div className="card">
+            <div className="card-body">
+                <img style={{ width: 175, height: 175, }} className="imgane-item img-thumbnail " src={eCommerce.image || eCommerce.images} alt={"descripcion"} />
+                <h4 className="cardTitle">{eCommerce.titulo}</h4>
+                <p className="card-text text-overflow descriptionText">{eCommerce.descripcion}</p>
+            </div>
+        </div>)
     }
 
     // El callback del useEffect se ejecutará antes de que el componente se monte
@@ -58,13 +66,7 @@ const Main = () => {
             </div>
             {
                 mostrarProd ?
-                    (<div className="card">
-                        <div className="card-body">
-                            <img style={{ width: 175, height: 175, }} className="imgane-item img-thumbnail " src={eCommerce.image || eCommerce.images} alt={"descripcion"} />
-                            <h4 className="cardTitle">{eCommerce.titulo}</h4>
-                            <p className="card-text text-overflow descriptionText">{eCommerce.descripcion}</p>
-                        </div>
-                    </div>)
+                    <cardOnClick />
                     : null
             }
             <div className="d-flex align-content-around flex-wrap">
@@ -75,7 +77,7 @@ const Main = () => {
                             images={eCommerce[posicion].images}
                             titulo={eCommerce[posicion].product_name}
                             price={eCommerce[posicion].price}
-                            descripcion={eCommerce[posicion].description ? eCommerce[posicion].description.substring(0,80)+"..." : "No Descripcion"}
+                            descripcion={eCommerce[posicion].description ? eCommerce[posicion].description.substring(0, 80) + "..." : "No Descripcion"}
                             key={i}
                             cardOnClick={cardOnClick} />
                         :
@@ -85,14 +87,15 @@ const Main = () => {
                                 images={eCommerce[posicion].images}
                                 titulo={eCommerce[posicion].product_name}
                                 price={eCommerce[posicion].price}
-                                descripcion={eCommerce[posicion].description ? eCommerce[posicion].description.substring(0,80)+"..." : "No Descripcion"}
+                                descripcion={eCommerce[posicion].description ? eCommerce[posicion].description.substring(0, 80) + "..." : "No Descripcion"}
                                 key={i}
                                 cardOnClick={cardOnClick} />
                             :
                             <LocalImage
                                 titulo={eCommerce[posicion].product_name}
-                                descripcion={eCommerce[posicion].description ? eCommerce[posicion].description.substring(0,80)+"..." : "No Descripcion"}
+                                descripcion={eCommerce[posicion].description ? eCommerce[posicion].description.substring(0, 80) + "..." : "No Descripcion"}
                                 key={i}
+                                cardOnClick={cardOnClick}
                             />
                 )
                 }
