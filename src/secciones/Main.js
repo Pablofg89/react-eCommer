@@ -75,7 +75,7 @@ const Main = () => {
                             images={eCommerce[posicion].images}
                             titulo={eCommerce[posicion].product_name}
                             price={eCommerce[posicion].price}
-                            descripcion={eCommerce[posicion].description ? eCommerce[posicion].description.split('').slice(0,50).join() : "No Descripcion"}
+                            descripcion={eCommerce[posicion].description ? eCommerce[posicion].description.substring(0,80)+"..." : "No Descripcion"}
                             key={i}
                             cardOnClick={cardOnClick} />
                         :
@@ -85,13 +85,13 @@ const Main = () => {
                                 images={eCommerce[posicion].images}
                                 titulo={eCommerce[posicion].product_name}
                                 price={eCommerce[posicion].price}
-                                descripcion={eCommerce[posicion].description}
+                                descripcion={eCommerce[posicion].description ? eCommerce[posicion].description.substring(0,80)+"..." : "No Descripcion"}
                                 key={i}
                                 cardOnClick={cardOnClick} />
                             :
                             <LocalImage
                                 titulo={eCommerce[posicion].product_name}
-                                descripcion={eCommerce[posicion].description}
+                                descripcion={eCommerce[posicion].description ? eCommerce[posicion].description.substring(0,80)+"..." : "No Descripcion"}
                                 key={i}
                             />
                 )
