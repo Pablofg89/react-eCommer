@@ -9,21 +9,32 @@ const Main = () => {
 
     // Variables de estado
     const [eCommerce, seteCommerce] = useState([]);
+    const [numbRand, setnumbRand] = useState([]);
+
     //cantiadad de elementos pagina principal 
-    const elementosEcommer = eCommerce.slice(0, 20);
+    const crearNumerosRand = (respuesta) => {
+        let arrayNumRand = [];
+        for (let i = 0; i < 20;) {
+            let numrand = Math.floor(Math.random() * respuesta.length);
+            if (!arrayNumRand.includes(numrand)) {
+                arrayNumRand.push(numrand);
+                i++;
+            }
+        }
+        setnumbRand(arrayNumRand);
+    }
     // Variables de estado
     const [mostrarProd, setMostrarProd] = useState(false);
 
 
     //Funcion de GET al API
     const geteCommer = () => {
-        console.log('Función GET');
         const URL = 'https://ecomerce-master.herokuapp.com/api/v1/item';
         fetch(URL)
             .then(body => body.json())
             .then(respuesta => {
                 seteCommerce(respuesta);
-                console.log(respuesta)
+                crearNumerosRand(respuesta);                
             });
     }
 
@@ -32,18 +43,6 @@ const Main = () => {
     const cardOnClick = (item) => {
         console.log('click card')
         setMostrarProd(true)
-
-        // return(
-        // <div className="card">
-        //     <div className="card-body">
-        //         <p>haha</p>
-        //         {/* <img style={{ width: 175, height: 175, }} className="imgane-item img-thumbnail " src={item.image || item.images} alt={"descripcion"} />
-        //         <h4 className="cardTitle">{titulo}</h4>
-        //         <p className="card-text text-overflow descriptionText">{descripcion}</p>
-        //         <p className="card-text text-overflow descriptionText">{price}</p> */}
-        //     </div>
-        // </div>
-        // )
     }
 
     // El callback del useEffect se ejecutará antes de que el componente se monte
@@ -69,22 +68,32 @@ const Main = () => {
                     : null
             }
             <div className="d-flex align-content-around flex-wrap">
-                {elementosEcommer.map((eCommerce, identificador) =>
-                    eCommerce.image ?
+                {numbRand.map((posicion, i) =>
+                    eCommerce[posicion].image && eCommerce[posicion].image.slice(0, 4) === 'http' ?
                         <ECommerceCard
-                            image={eCommerce.image}
-                            images={eCommerce.images}
-                            titulo={eCommerce.product_name}
-                            price={eCommerce.price}
-                            descripcion={eCommerce.description}
-                            key={identificador}
+                            image={eCommerce[posicion].image}
+                            images={eCommerce[posicion].images}
+                            titulo={eCommerce[posicion].product_name}
+                            price={eCommerce[posicion].price}
+                            descripcion={eCommerce[posicion].description ? eCommerce[posicion].description.split('').slice(0,50).join() : "No Descripcion"}
+                            key={i}
                             cardOnClick={cardOnClick} />
                         :
-                        <LocalImage
-                            titulo={eCommerce.product_name}
-                            descripcion={eCommerce.description}
-                            key={identificador}
-                        />
+                        eCommerce[posicion].images && eCommerce[posicion].images.slice(0, 4) === 'http' ?
+                            <ECommerceCard
+                                image={eCommerce[posicion].image}
+                                images={eCommerce[posicion].images}
+                                titulo={eCommerce[posicion].product_name}
+                                price={eCommerce[posicion].price}
+                                descripcion={eCommerce[posicion].description}
+                                key={i}
+                                cardOnClick={cardOnClick} />
+                            :
+                            <LocalImage
+                                titulo={eCommerce[posicion].product_name}
+                                descripcion={eCommerce[posicion].description}
+                                key={i}
+                            />
                 )
                 }
             </div>

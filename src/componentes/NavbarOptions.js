@@ -18,6 +18,7 @@ const NavbarOptions = (props) => {
     return (
         <div>
             <nav className="" >
+            <hr/>
                 <p className="pTitle" >Categories</p>
                 <form className="fromSec">
                     {categoryFilter.map((result,index) => (
@@ -25,6 +26,7 @@ const NavbarOptions = (props) => {
                     )
                     )}
                 </form>
+                <hr/>
             </nav >
         </div>
     )
