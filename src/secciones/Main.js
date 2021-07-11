@@ -11,8 +11,10 @@ const Main = () => {
     const [eCommerce, seteCommerce] = useState([]);
     const [numbRand, setnumbRand] = useState([]);
     const [infoCategories, setinfoCategories] = useState([]);
-    //const [mostrarProd, setMostrarProd] = useState(false);
+    const [mostrarProd, setMostrarProd] = useState(false);
+    const [selectItem, setSelectItem] = useState();
 
+    
     //Funcion de GET al API
     const geteCommer = () => {
         const URL = 'https://ecomerce-master.herokuapp.com/api/v1/item';
@@ -24,6 +26,15 @@ const Main = () => {
                 setinfoCategories(respuesta);
             });
     }
+
+    // const geteCommerBusqueda = (busqueda) => {
+    //     const URL = `https://ecomerce-master.herokuapp.com/api/v1/item/${busqueda}`;
+    //     fetch(URL)
+    //         .then(body => body.json())
+    //         .then(respuesta => {
+    //             setBusqueda(respuesta);                
+    //         });
+    // }
 
     //cantiadad de elementos pagina principal 
     let crearNumerosRand = (respuesta) => {
@@ -68,21 +79,15 @@ const Main = () => {
     }
 
     //Onclick card
-    const cardOnClick = () => {
-        console.log('click cardOnClick')
-        //setMostrarProd(true)
-        return (
-            <div className="card">
-                <div className="card-body">
-                    <img style={{ width: 175, height: 175, }} className="imgane-item img-thumbnail " src={eCommerce.image || eCommerce.images} alt={"descripcion"} />
-                    <h4 className="cardTitle">{eCommerce.titulo}</h4>
-                    <p className="card-text text-overflow descriptionText">{eCommerce.descripcion}</p>
-                </div>
-            </div>
-        )
+    const cardOnClick = (prods) => {
+        console.log(prods)
+
+        setSelectItem (prods); 
+        setMostrarProd(true);
     }
 
     // El callback del useEffect se ejecutará antes de que el componente se monte
+ 
     useEffect(() => {
         geteCommer();
     }, []);
@@ -90,7 +95,9 @@ const Main = () => {
     return (
         <div className="container">
             {/*NAVBAR */}
-            <div><Navbar /></div>
+            <div><Navbar 
+            buscarEcomer={geteCommer}
+            /></div>
 
             {/*Caterigorias */}
             <div>
@@ -100,21 +107,23 @@ const Main = () => {
             </div>
 
             {/* Carta selecciona de cada Articulos */}
-            {
-                //mostrarProd ?
-                // ( <div className="card">
-                //     <div className="card-body">
-                //         <img style={{ width: 175, height: 175, }} className="imgane-item img-thumbnail " src={eCommerce.image || eCommerce.images} alt={"descripcion"} />
-                //         <h4 className="cardTitle">{eCommerce.titulo}</h4>
-                //         <p className="card-text text-overflow descriptionText">{eCommerce.descripcion}</p>
-                //     </div>
-                // </div>)
-                //: null
+            { mostrarProd ?
+                (
+                 <div className="card">
+                     <div className="card-body">
+                               <img style={{ width: 175, height: 175, }} className="imgane-item img-thumbnail " src={selectItem.image || numbRand.images} alt={"descripcion"} />
+                                    <h4 className="cardTitle">{selectItem.titulo}</h4>
+                                    <p className="card-text text-overflow descriptionText">{selectItem.descripcion}</p>
+                           </div>
+                           </div>
+                    )
+               : null
             }
 
             {/* Articulos */}
             <div className="d-flex align-content-around flex-wrap">
                 {numbRand.map((posicion, i) =>
+
                     eCommerce[posicion].image && eCommerce[posicion].image.slice(0, 4) === 'http' ?
                         <ECommerceCard
                             image={eCommerce[posicion].image}

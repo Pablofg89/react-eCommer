@@ -9,7 +9,7 @@ const ECommerceCard = (props) => {
 
    
     return (
-        <div className="card" onClick={() => {cardOnClick(id)}}>
+        <div className="card" onClick={() => {cardOnClick(props)}}>
             <div className="card-body">
                 <img style={{ width: 175, height: 175, }} className="imgane-item img-thumbnail " src={image || images} alt={"descripcion"} />
                 <h4 className="cardTitle">{titulo}</h4>
