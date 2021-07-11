@@ -2,3 +2,43 @@
     justify-content: center;
     padding: 0px 0px;
 }
+.itemSelec{
+    z-index: 1;
+    position: absolute;
+    display:flex;
+    background-color: #fff;
+    border-radius: 8px;
+    border: 1px solid;
+    border-color: #D5D9D9;
+    box-shadow: 0 0 14px 0 rgb(15 17 17 / 50%);
+    overflow: hidden;
+    height: 60%;
+    width: 68%;
+}
+.itemImagen{
+    height: 754px;
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    cursor: zoom-in;
+}
+.itemImagen .image{
+    height: 63%;
+    width: auto;
+    margin: 46px;
+}
+.itemtext{
+    align-self: center;
+    width: 65%;
+
+}
+.bottomClose{
+    padding: 0 10px;
+    font-weight: bold;
+    cursor : pointer;
+}
+
+
+
+
+

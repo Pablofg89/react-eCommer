@@ -3,6 +3,7 @@
     margin: 4px;
     text-align: center;
     background-color: #ffffffc5 !important;
+    cursor : pointer;
 }
 .cardTitle{
     font-size: 17px;

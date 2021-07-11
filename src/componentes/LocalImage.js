@@ -4,9 +4,9 @@ import './EcomerCard.css'
 
 const LocalImage = (props) =>{
 // Destructurar el API 
-const { titulo,cardOnClick, descripcion,id} = props;
+const { titulo,cardOnClick, descripcion,price} = props;
 return(
-    <div className="card" onClick={() => { cardOnClick(id) }}>
+    <div className="card" onClick={() => { cardOnClick(props) }}>
     <div className="card-body">
         <img style={{width: 175, height: 175, }} className="imgane-item img-thumbnail " alt="Login" src={Login}/>
         <h4 className="cardTitle">{titulo}</h4>

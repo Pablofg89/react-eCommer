@@ -3,6 +3,7 @@ import ECommerceCard from '../componentes/EcomerCard'
 import Navbar from '../componentes/Navbar'
 import LocalImage from '../componentes/LocalImage'
 import NavbarOptions from '../componentes/NavbarOptions'
+import Login from '../assets/login.jpg'
 import './Main.css'
 
 const Main = () => {
@@ -14,7 +15,7 @@ const Main = () => {
     const [mostrarProd, setMostrarProd] = useState(false);
     const [selectItem, setSelectItem] = useState();
 
-    
+
     //Funcion de GET al API
     const geteCommer = () => {
         const URL = 'https://ecomerce-master.herokuapp.com/api/v1/item';
@@ -43,7 +44,7 @@ const Main = () => {
             let numrand = Math.floor(Math.random() * respuesta.length);
             if (!arrayNumRand.includes(numrand)) {
                 arrayNumRand.push(numrand);
-                
+
                 i++;
             }
         }
@@ -52,7 +53,7 @@ const Main = () => {
     }
 
     //Select de las categorias
-    const categoriaSelect = (categoria) => { 
+    const categoriaSelect = (categoria) => {
         console.log(eCommerce);
         let arrayCategoria = [];
         if (categoria === "Other") {
@@ -70,9 +71,9 @@ const Main = () => {
                 }
             }
         }
-        
+
         seteCommerce(arrayCategoria);
-        let rand = arrayCategoria.map( (catagoria,i) => {
+        let rand = arrayCategoria.map((catagoria, i) => {
             return i;
         })
         setnumbRand(rand);
@@ -82,12 +83,17 @@ const Main = () => {
     const cardOnClick = (prods) => {
         console.log(prods)
 
-        setSelectItem (prods); 
+        setSelectItem(prods);
         setMostrarProd(true);
     }
 
+    //Onclick clase Item
+    
+
+
+
     // El callback del useEffect se ejecutará antes de que el componente se monte
- 
+
     useEffect(() => {
         geteCommer();
     }, []);
@@ -95,8 +101,8 @@ const Main = () => {
     return (
         <div className="container">
             {/*NAVBAR */}
-            <div><Navbar 
-            buscarEcomer={geteCommer}
+            <div><Navbar
+                buscarEcomer={geteCommer}
             /></div>
 
             {/*Caterigorias */}
@@ -107,17 +113,24 @@ const Main = () => {
             </div>
 
             {/* Carta selecciona de cada Articulos */}
-            { mostrarProd ?
-                (
-                 <div className="card">
-                     <div className="card-body">
-                               <img style={{ width: 175, height: 175, }} className="imgane-item img-thumbnail " src={selectItem.image || numbRand.images} alt={"descripcion"} />
-                                    <h4 className="cardTitle">{selectItem.titulo}</h4>
-                                    <p className="card-text text-overflow descriptionText">{selectItem.descripcion}</p>
-                           </div>
-                           </div>
-                    )
-               : null
+            {mostrarProd ?
+                (                    
+                    <div className="itemSelec">  
+                        <div className="itemImagen">
+                            <img className="image" src={selectItem.image || selectItem.images || Login } alt={"descripcion"} />
+                        </div>
+                        <div className="itemtext">
+                            <h4 className="">{selectItem.titulo}</h4>
+                            <p className="">{selectItem.descripcion}</p>
+                            <p className="">{"Precio: " + selectItem.price}</p>
+                        </div>
+                        <div>
+                        <bottom className="bottomClose" onClick={() => {setMostrarProd(false) }}>X</bottom>
+                        </div>
+                    </div>
+                    
+                )
+                : null
             }
 
             {/* Articulos */}
@@ -130,7 +143,7 @@ const Main = () => {
                             images={eCommerce[posicion].images}
                             titulo={eCommerce[posicion].product_name}
                             price={eCommerce[posicion].price}
-                            descripcion={eCommerce[posicion].description ? eCommerce[posicion].description.substring(0, 80) + "..." : "No Descripcion"}
+                            descripcion={eCommerce[posicion].description ? eCommerce[posicion].description.substring(0, 100) + "..." : "No Descripcion"}
                             id={i}
                             key={i}
                             cardOnClick={cardOnClick} />
@@ -141,14 +154,15 @@ const Main = () => {
                                 images={eCommerce[posicion].images}
                                 titulo={eCommerce[posicion].product_name}
                                 price={eCommerce[posicion].price}
-                                descripcion={eCommerce[posicion].description ? eCommerce[posicion].description.substring(0, 80) + "..." : "No Descripcion"}
+                                descripcion={eCommerce[posicion].description ? eCommerce[posicion].description.substring(0, 100) + "..." : "No Descripcion"}
                                 id={i}
                                 key={i}
                                 cardOnClick={cardOnClick} />
                             :
                             <LocalImage
                                 titulo={eCommerce[posicion].product_name}
-                                descripcion={eCommerce[posicion].description ? eCommerce[posicion].description.substring(0, 80) + "..." : "No Descripcion"}
+                                descripcion={eCommerce[posicion].description ? eCommerce[posicion].description.substring(0, 100) + "..." : "No Descripcion"}
+                                price={eCommerce[posicion].price}
                                 id={i}
                                 key={i}
                                 cardOnClick={cardOnClick}

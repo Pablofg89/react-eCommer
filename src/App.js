@@ -4,10 +4,7 @@ import Footer from './componentes/Footer'
 
 function App() {
   return (
-    <div style={{ 
-      //backgroundImage: `url(${background})`,
-      //backgroundRepeat: 'no-repeat',
-    }}>
+    <div>
       <Main/>
       <Footer/>
     </div>

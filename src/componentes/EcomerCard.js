@@ -5,7 +5,7 @@ import './EcomerCard.css'
 
 const ECommerceCard = (props) => {
     // Destructurar el API 
-    const { image, images, titulo, cardOnClick, descripcion, id} = props;
+    const { image, images, titulo, cardOnClick, descripcion, price} = props;
 
    
     return (
