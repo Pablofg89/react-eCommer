@@ -2,7 +2,7 @@ import React from 'react'
 import './Navbar.css'
 const Navbar = (props) => {
 
-    let {buscarEcomer}=props;
+    let {filtrarProductos}=props;
 
     return (
         <div>
@@ -14,7 +14,7 @@ const Navbar = (props) => {
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <form className="d-flex">
-                            <input onChange={(evento) => {buscarEcomer(evento.target.value)}} type="text" className="form-control me-2" placeholder="Buscador" aria-label="Username" aria-describedby="basic-addon1" />
+                            <input onChange={(evento) => {filtrarProductos(evento.target.value)}} type="text" className="form-control me-2" placeholder="Buscador" aria-label="Username" aria-describedby="basic-addon1" />
                             {/* <input className="form-control me-2" type="search" placeholder="Buscar..." aria-label="Search"/>
                             <button style={{backgroundColor:"#05285a", borderColor:"#05285a"}} className ="btn btn-primary" type ="submit">Buscar</button>
                             <button className ="button" type ="submit">Buscar</button> */}

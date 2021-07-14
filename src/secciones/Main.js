@@ -14,7 +14,17 @@ const Main = () => {
     const [infoCategories, setinfoCategories] = useState([]);
     const [mostrarProd, setMostrarProd] = useState(false);
     const [selectItem, setSelectItem] = useState();
+    const [productosFiltrados, setProductosFiltrados] = useState();
 
+
+    //Productos filtrados buscador 
+    const filtrarProductos = (busqueda) => {
+        let resultado = eCommerce.filter(prod => prod.product_name.toLowerCase().includes(busqueda.toLowerCase()));
+        console.log(resultado);
+        //setnumbRand(resultado);
+        //setnumbRand(resultado);
+        crearNumerosRand(resultado);
+    }
 
     //Funcion de GET al API
     const geteCommer = () => {
@@ -25,17 +35,9 @@ const Main = () => {
                 seteCommerce(respuesta);
                 crearNumerosRand(respuesta);
                 setinfoCategories(respuesta);
+                setProductosFiltrados(respuesta);
             });
     }
-
-    // const geteCommerBusqueda = (busqueda) => {
-    //     const URL = `https://ecomerce-master.herokuapp.com/api/v1/item/${busqueda}`;
-    //     fetch(URL)
-    //         .then(body => body.json())
-    //         .then(respuesta => {
-    //             setBusqueda(respuesta);                
-    //         });
-    // }
 
     //cantiadad de elementos pagina principal 
     let crearNumerosRand = (respuesta) => {
@@ -44,12 +46,10 @@ const Main = () => {
             let numrand = Math.floor(Math.random() * respuesta.length);
             if (!arrayNumRand.includes(numrand)) {
                 arrayNumRand.push(numrand);
-
                 i++;
             }
         }
         setnumbRand(arrayNumRand);
-
     }
 
     //Select de las categorias
@@ -82,18 +82,11 @@ const Main = () => {
     //Onclick card
     const cardOnClick = (prods) => {
         console.log(prods)
-
         setSelectItem(prods);
         setMostrarProd(true);
     }
 
-    //Onclick clase Item
-    
-
-
-
     // El callback del useEffect se ejecutará antes de que el componente se monte
-
     useEffect(() => {
         geteCommer();
     }, []);
@@ -102,7 +95,7 @@ const Main = () => {
         <div className="container">
             {/*NAVBAR */}
             <div><Navbar
-                buscarEcomer={geteCommer}
+                filtrarProductos={filtrarProductos}
             /></div>
 
             {/*Caterigorias */}
@@ -136,7 +129,6 @@ const Main = () => {
             {/* Articulos */}
             <div className="d-flex align-content-around flex-wrap">
                 {numbRand.map((posicion, i) =>
-
                     eCommerce[posicion].image && eCommerce[posicion].image.slice(0, 4) === 'http' ?
                         <ECommerceCard
                             image={eCommerce[posicion].image}
