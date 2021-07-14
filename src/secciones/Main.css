@@ -37,6 +37,11 @@
     font-weight: bold;
     cursor : pointer;
 }
+.precio{
+    font-weight: bold;
+    text-align: -webkit-right;
+    font-size: 17px;
+}
 
 
 

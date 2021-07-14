@@ -122,7 +122,7 @@ const Main = () => {
                         <div className="itemtext">
                             <h4 className="">{selectItem.titulo}</h4>
                             <p className="">{selectItem.descripcion}</p>
-                            <p className="">{"Precio: " + selectItem.price}</p>
+                            <p className="precio">{"Precio: $" + selectItem.price}</p>
                         </div>
                         <div>
                         <bottom className="bottomClose" onClick={() => {setMostrarProd(false) }}>X</bottom>
