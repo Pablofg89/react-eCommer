@@ -4,7 +4,7 @@ import './EcomerCard.css'
 
 const LocalImage = (props) =>{
 // Destructurar el API 
-const { titulo,cardOnClick, descripcion,price} = props;
+const { titulo,cardOnClick, descripcion} = props;
 return(
     <div className="card" onClick={() => { cardOnClick(props) }}>
     <div className="card-body">

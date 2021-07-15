@@ -14,17 +14,10 @@ const Main = () => {
     const [infoCategories, setinfoCategories] = useState([]);
     const [mostrarProd, setMostrarProd] = useState(false);
     const [selectItem, setSelectItem] = useState();
-    const [productosFiltrados, setProductosFiltrados] = useState();
+    //const [productosFiltrados, setProductosFiltrados] = useState();
 
 
-    //Productos filtrados buscador 
-    const filtrarProductos = (busqueda) => {
-        let resultado = eCommerce.filter(prod => prod.product_name.toLowerCase().includes(busqueda.toLowerCase()));
-        console.log(resultado);
-        //setnumbRand(resultado);
-        //setnumbRand(resultado);
-        crearNumerosRand(resultado);
-    }
+
 
     //Funcion de GET al API
     const geteCommer = () => {
@@ -35,26 +28,43 @@ const Main = () => {
                 seteCommerce(respuesta);
                 crearNumerosRand(respuesta);
                 setinfoCategories(respuesta);
-                setProductosFiltrados(respuesta);
+                //setProductosFiltrados(respuesta);
             });
     }
-
+    //Productos filtrados buscador 
+    const filtrarProductos = (busqueda) => {
+        let resultado = eCommerce.filter(prod => prod.product_name.toLowerCase().includes(busqueda.toLowerCase()));
+        console.log(resultado);
+        crearNumerosRand(resultado);
+    }
     //cantiadad de elementos pagina principal 
     let crearNumerosRand = (respuesta) => {
         let arrayNumRand = [];
-        for (let i = 0; i < 20;) {
-            let numrand = Math.floor(Math.random() * respuesta.length);
-            if (!arrayNumRand.includes(numrand)) {
-                arrayNumRand.push(numrand);
-                i++;
+        if (respuesta.length < 20 && respuesta.length !== 0) {
+            for (let i = 0; i < respuesta.length;) {
+                let numrand = Math.floor(Math.random() * respuesta.length);
+                if (!arrayNumRand.includes(numrand)) {
+                    arrayNumRand.push(numrand);
+                    i++;
+                }
             }
+            setnumbRand(arrayNumRand);
+        } else if (respuesta.length > 20) {
+            for (let i = 0; i < 20;) {
+                let numrand = Math.floor(Math.random() * respuesta.length);
+                if (!arrayNumRand.includes(numrand)) {
+                    arrayNumRand.push(numrand);
+                    i++;
+                }
+            }
+            setnumbRand(arrayNumRand);
+        } else if (respuesta.length === 0) {
+            alert('No se registran productros');
         }
-        setnumbRand(arrayNumRand);
     }
 
     //Select de las categorias
     const categoriaSelect = (categoria) => {
-        console.log(eCommerce);
         let arrayCategoria = [];
         if (categoria === "Other") {
             for (let i = 0; i < eCommerce.length; i++) {
@@ -71,7 +81,6 @@ const Main = () => {
                 }
             }
         }
-
         seteCommerce(arrayCategoria);
         let rand = arrayCategoria.map((catagoria, i) => {
             return i;
@@ -107,10 +116,10 @@ const Main = () => {
 
             {/* Carta selecciona de cada Articulos */}
             {mostrarProd ?
-                (                    
-                    <div className="itemSelec">  
+                (
+                    <div className="itemSelec">
                         <div className="itemImagen">
-                            <img className="image" src={selectItem.image || selectItem.images || Login } alt={"descripcion"} />
+                            <img className="image" src={selectItem.image || selectItem.images || Login} alt={"descripcion"} />
                         </div>
                         <div className="itemtext">
                             <h4 className="">{selectItem.titulo}</h4>
@@ -118,10 +127,10 @@ const Main = () => {
                             <p className="precio">{"Precio: $" + selectItem.price}</p>
                         </div>
                         <div>
-                        <bottom className="bottomClose" onClick={() => {setMostrarProd(false) }}>X</bottom>
+                            <bottom className="bottomClose" onClick={() => { setMostrarProd(false) }}>X</bottom>
                         </div>
                     </div>
-                    
+
                 )
                 : null
             }
@@ -129,6 +138,7 @@ const Main = () => {
             {/* Articulos */}
             <div className="d-flex align-content-around flex-wrap">
                 {numbRand.map((posicion, i) =>
+
                     eCommerce[posicion].image && eCommerce[posicion].image.slice(0, 4) === 'http' ?
                         <ECommerceCard
                             image={eCommerce[posicion].image}
